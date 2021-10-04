@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormArray,
-  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { TagStructure } from '../common/interface/tag.interface';
 @Component({
   selector: 'app-new-form',
   templateUrl: './new-form.component.html',
@@ -15,26 +15,11 @@ import {
 export class NewFormComponent implements OnInit {
   inputFrom: FormGroup;
   tagsLength: number = 0;
-  constructor(fb: FormBuilder) {
-    /*  this.inputFrom = fb.group({
-      formName: [],
-      inputType: [],
-      inputType: [],
-      tags: fb.array([]),
-    });*/
-  }
-  onAddInputeTag(form: {
-    formName: string;
-    inputType: string;
-    inputLabel: string;
-  }): void {
-    console.log(form);
+  inputTags: TagStructure[] = [];
+  constructor() {}
+  onAddInputeTag(form: TagStructure): void {
     (this.inputFrom.get('tags') as FormArray).push(
       new FormControl([form.inputLabel, form.inputType])
-    );
-    console.log(
-      'tags length: ',
-      (this.inputFrom.get('tags') as FormArray).value.length
     );
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
   }
@@ -65,10 +50,14 @@ export class NewFormComponent implements OnInit {
     (this.inputFrom.get('tags') as FormArray).removeAt(index);
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
   }
-  onSave(): void {
+  onSave(formName: any): void {
     for (let tag of this.tags) {
       if (tag instanceof FormControl) {
-        console.log('label', tag.value[0]);
+        this.inputTags.push({
+          formName: formName.value,
+          inputLabel: tag.value[0],
+          inputType: tag.value[1],
+        });
       }
     }
   }
