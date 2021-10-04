@@ -6,8 +6,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { TagsStructure, TagStructure } from '../common/interface/tag.interface';
 import { FormService } from '../services/form.service';
+
 @Component({
   selector: 'app-new-form',
   templateUrl: './new-form.component.html',
@@ -68,6 +70,7 @@ export class NewFormComponent implements OnInit {
         });
       }
     }
+
     this.formService.saveOnIndexedDB(this.inputTags, formName?.value);
   }
 }
