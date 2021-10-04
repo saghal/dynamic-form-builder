@@ -14,7 +14,7 @@ import {
 })
 export class NewFormComponent implements OnInit {
   inputFrom: FormGroup;
-
+  tagsLength: number = 0;
   constructor(fb: FormBuilder) {
     /*  this.inputFrom = fb.group({
       formName: [],
@@ -32,11 +32,11 @@ export class NewFormComponent implements OnInit {
     (this.inputFrom.get('tags') as FormArray).push(
       new FormControl([form.inputLabel, form.inputType])
     );
-    console.log(this.inputFrom.get('tags'));
-    /*console.log('here', form.name);
-    console.log('formName', form.formName);
-    console.log('label: ', form.inputLabel);
-    console.log('type', form.inputType);*/
+    console.log(
+      'tags length: ',
+      (this.inputFrom.get('tags') as FormArray).value.length
+    );
+    this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
   }
   ngOnInit(): void {
     this.inputFrom = new FormGroup({
@@ -62,7 +62,14 @@ export class NewFormComponent implements OnInit {
   }
   onRemove(tag: FormControl): void {
     let index = this.tags.indexOf(tag);
-    console.log('show us index ', index);
     (this.inputFrom.get('tags') as FormArray).removeAt(index);
+    this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
+  }
+  onSave(): void {
+    for (let tag of this.tags) {
+      if (tag instanceof FormControl) {
+        console.log('label', tag.value[0]);
+      }
+    }
   }
 }

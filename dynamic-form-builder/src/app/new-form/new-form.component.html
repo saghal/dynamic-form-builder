@@ -4,97 +4,115 @@
   integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
   crossorigin="anonymous"
 />
-
-<form [formGroup]="inputFrom" (ngSubmit)="onAddInputeTag(inputFrom.value)">
-  <div class="container">
-    <div class="form-group">
-      <input
-        name="formName"
-        type="text"
-        class="form-control"
-        style="margin-top: 5px"
-        id="FormName"
-        formControlName="formName"
-        placeholder="Form Name"
-      />
-      <div
-        style="margin-top: 5px"
-        *ngIf="formName?.invalid && (formName?.dirty || formName?.touched)"
-        class="alert alert-danger"
-        role="alert"
-      >
-        <div *ngIf="formName?.errors?.required">Form Name is required!</div>
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputLabel">Label</label>
+<div class="container">
+  <form [formGroup]="inputFrom" (ngSubmit)="onAddInputeTag(inputFrom.value)">
+    <div class="container">
+      <div class="form-group">
         <input
-          name="inputLabel"
+          name="formName"
           type="text"
-          formControlName="inputLabel"
           class="form-control"
-          id="inputLabel"
-          placeholder="Input Label"
+          style="margin-top: 5px"
+          id="FormName"
+          formControlName="formName"
+          placeholder="Form Name"
         />
         <div
           style="margin-top: 5px"
-          *ngIf="
-            inputLabel?.invalid && (inputLabel?.dirty || inputLabel?.touched)
-          "
+          *ngIf="formName?.invalid && (formName?.dirty || formName?.touched)"
           class="alert alert-danger"
           role="alert"
         >
-          <div *ngIf="inputLabel?.errors?.required">Label is required!</div>
+          <div *ngIf="formName?.errors?.required">Form Name is required!</div>
         </div>
       </div>
 
-      <div class="form-group col-md-6">
-        <label for="inputType">Type</label>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputLabel">Label</label>
+          <input
+            name="inputLabel"
+            type="text"
+            formControlName="inputLabel"
+            class="form-control"
+            id="inputLabel"
+            placeholder="Input Label"
+          />
+          <div
+            style="margin-top: 5px"
+            *ngIf="
+              inputLabel?.invalid && (inputLabel?.dirty || inputLabel?.touched)
+            "
+            class="alert alert-danger"
+            role="alert"
+          >
+            <div *ngIf="inputLabel?.errors?.required">Label is required!</div>
+          </div>
+        </div>
 
-        <select
-          formControlName="inputType"
-          class="browser-default custom-select"
-          name="inputType"
-        >
-          <option value="input text" selected="">input text</option>
-          <option value="radio button">radio button</option>
-          <option value="check box">check box</option>
-          <option value="combo box">combo box</option>
-          <option value="date picker">date picker</option>
-          <option value="text Area">text Area</option>
-        </select>
-        <div
-          style="margin-top: 5px"
-          *ngIf="inputType?.invalid && (inputType?.dirty || inputType?.touched)"
-          class="alert alert-danger"
-          role="alert"
-        >
-          <div *ngIf="inputType?.errors?.required">Type is required!</div>
+        <div class="form-group col-md-6">
+          <label for="inputType">Type</label>
+
+          <select
+            formControlName="inputType"
+            class="browser-default custom-select"
+            name="inputType"
+          >
+            <option value="input text" selected="">input text</option>
+            <option value="radio button">radio button</option>
+            <option value="check box">check box</option>
+            <option value="combo box">combo box</option>
+            <option value="date picker">date picker</option>
+            <option value="text Area">text Area</option>
+          </select>
+          <div
+            style="margin-top: 5px"
+            *ngIf="
+              inputType?.invalid && (inputType?.dirty || inputType?.touched)
+            "
+            class="alert alert-danger"
+            role="alert"
+          >
+            <div *ngIf="inputType?.errors?.required">Type is required!</div>
+          </div>
         </div>
       </div>
+      <div class="form-group">
+        <button
+          [disabled]="inputLabel?.invalid || inputType?.invalid"
+          type="submit"
+          class="btn btn-success"
+        >
+          New
+        </button>
+      </div>
     </div>
-    <div class="form-group">
-      <button
-        [disabled]="inputLabel?.invalid || inputType?.invalid"
-        type="submit"
-        class="btn btn-success"
-      >
-        New
-      </button>
-    </div>
+  </form>
+  <div class="container" *ngIf="tags">
+    <ul class="list-group">
+      <li *ngFor="let tag of tags" class="list-group-item">
+        Label: {{ tag.value[0] }} <br />
+        Type: {{ tag.value[1] }}
+        <div (click)="onRemove(tag)" style="margin-bottom: 40px">
+          <button type="submit" class="btn btn-danger float-right">
+            delete
+          </button>
+        </div>
+        <hr />
+      </li>
+    </ul>
   </div>
-</form>
-<div class="container" *ngIf="tags">
-  <ul class="list-group">
-    <li *ngFor="let tag of tags" class="list-group-item">
-      Label: {{ tag.value[0] }} <br />
-      Type: {{ tag.value[1] }}
-      <div (click)="onRemove(tag)" style="margin-bottom: 40px">
-        <button type="submit" class="btn btn-danger float-right">delete</button>
-      </div>
-      <hr />
-    </li>
-  </ul>
+  <div
+    *ngIf="!formName?.invalid && tagsLength !== 0"
+    style="margin-top: 5px"
+    class="col text-center"
+  >
+    <button
+      type="submit"
+      class="btn btn-primary btn-lg btn-block"
+      (click)="onSave()"
+    >
+      Save
+    </button>
+  </div>
 </div>
