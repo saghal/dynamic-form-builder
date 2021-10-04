@@ -19,8 +19,11 @@ export class NewFormComponent implements OnInit {
   inputFrom: FormGroup;
   tagsLength: number = 0;
   inputTags: TagsStructure[] = [];
-
-  constructor(private formService: FormService) {}
+  formNameIsUnique: boolean = false;
+  constructor(
+    private formService: FormService,
+    private dbService: NgxIndexedDBService
+  ) {}
 
   onAddInputeTag(form: TagStructure): void {
     (this.inputFrom.get('tags') as FormArray).push(
@@ -61,6 +64,11 @@ export class NewFormComponent implements OnInit {
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
   }
 
+  formNameUniqueness(formName: any): void {
+    let result = this.formService.checkFromNameFromIndexedDB(formName.value);
+    if (result === true || result === false) this.formNameIsUnique = result;
+  }
+
   onSave(formName: AbstractControl | null): void {
     for (let tag of this.tags) {
       if (tag instanceof FormControl) {
@@ -72,5 +80,8 @@ export class NewFormComponent implements OnInit {
     }
 
     this.formService.saveOnIndexedDB(this.inputTags, formName?.value);
+    this.dbService.getByKey('forms', 'form 1').subscribe((form) => {
+      console.log(form);
+    });
   }
 }

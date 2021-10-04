@@ -16,5 +16,13 @@ export class FormService {
       });
   }
 
-  getRowFromIndexedDB(formName: string): void {}
+  checkFromNameFromIndexedDB(formName: string): boolean | void {
+    this.dbService.getByKey('forms', formName).subscribe((form) => {
+      if (form === undefined) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }

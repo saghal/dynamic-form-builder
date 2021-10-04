@@ -16,6 +16,7 @@
           id="FormName"
           formControlName="formName"
           placeholder="Form Name"
+          (change)="formNameUniqueness(formName)"
         />
         <div
           style="margin-top: 5px"
