@@ -6,7 +6,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { TagStructure } from '../common/interface/tag.interface';
+import { TagsStructure, TagStructure } from '../common/interface/tag.interface';
+import { FormService } from '../services/form.service';
 @Component({
   selector: 'app-new-form',
   templateUrl: './new-form.component.html',
@@ -15,14 +16,17 @@ import { TagStructure } from '../common/interface/tag.interface';
 export class NewFormComponent implements OnInit {
   inputFrom: FormGroup;
   tagsLength: number = 0;
-  inputTags: TagStructure[] = [];
-  constructor() {}
+  inputTags: TagsStructure[] = [];
+
+  constructor(private formService: FormService) {}
+
   onAddInputeTag(form: TagStructure): void {
     (this.inputFrom.get('tags') as FormArray).push(
       new FormControl([form.inputLabel, form.inputType])
     );
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
   }
+
   ngOnInit(): void {
     this.inputFrom = new FormGroup({
       formName: new FormControl(null, Validators.required),
@@ -36,29 +40,34 @@ export class NewFormComponent implements OnInit {
     //type of this controls
     return (this.inputFrom.get('tags') as FormArray).controls;
   }
+
   get formName(): AbstractControl | null {
     return this.inputFrom.get('formName');
   }
+
   get inputLabel(): AbstractControl | null {
     return this.inputFrom.get('inputLabel');
   }
+
   get inputType(): AbstractControl | null {
     return this.inputFrom.get('inputType');
   }
+
   onRemove(tag: FormControl): void {
     let index = this.tags.indexOf(tag);
     (this.inputFrom.get('tags') as FormArray).removeAt(index);
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
   }
-  onSave(formName: any): void {
+
+  onSave(formName: AbstractControl | null): void {
     for (let tag of this.tags) {
       if (tag instanceof FormControl) {
         this.inputTags.push({
-          formName: formName.value,
           inputLabel: tag.value[0],
           inputType: tag.value[1],
         });
       }
     }
+    this.formService.saveOnIndexedDB(this.inputTags, formName?.value);
   }
 }

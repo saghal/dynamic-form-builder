@@ -3,3 +3,8 @@ export interface TagStructure {
   inputType: string;
   inputLabel: string;
 }
+
+export interface TagsStructure {
+  inputType: string;
+  inputLabel: string;
+}
