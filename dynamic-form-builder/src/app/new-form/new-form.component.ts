@@ -50,6 +50,9 @@ export class NewFormComponent implements OnInit {
     //type of this controls
     return (this.inputFrom.get('tags') as FormArray).controls;
   }
+  get formName(): any {
+    return this.inputFrom.get('formName') as FormArray;
+  }
   onRemove(tag: FormControl): void {
     let index = this.tags.indexOf(tag);
     console.log('show us index ', index);
