@@ -57,6 +57,9 @@ export class NewFormComponent implements OnInit {
   get inputLabel(): AbstractControl | null {
     return this.inputFrom.get('inputLabel');
   }
+  get inputType(): AbstractControl | null {
+    return this.inputFrom.get('inputType');
+  }
   onRemove(tag: FormControl): void {
     let index = this.tags.indexOf(tag);
     console.log('show us index ', index);
