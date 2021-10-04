@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NewFormComponent } from './new-form/new-form.component';
 import { FormService } from './services/form.service';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
+import { FormsListComponent } from './forms-list/forms-list.component';
 
 const dbConfig: DBConfig = {
   name: 'MyDb',
@@ -23,7 +24,7 @@ const dbConfig: DBConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NewFormComponent],
+  declarations: [AppComponent, NewFormComponent, FormsListComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
