@@ -19,17 +19,17 @@
       />
       <div
         style="margin-top: 5px"
-        *ngIf="formName.invalid && (formName.dirty || formName.touched)"
+        *ngIf="formName?.invalid && (formName?.dirty || formName?.touched)"
         class="alert alert-danger"
         role="alert"
       >
-        <div *ngIf="formName.errors?.required">Form Name is required!</div>
+        <div *ngIf="formName?.errors?.required">Form Name is required!</div>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputPassword4">Label</label>
+        <label for="inputLabel">Label</label>
         <input
           name="inputLabel"
           type="text"
@@ -38,6 +38,16 @@
           id="inputLabel"
           placeholder="Input Label"
         />
+        <div
+          style="margin-top: 5px"
+          *ngIf="
+            inputLabel?.invalid && (inputLabel?.dirty || inputLabel?.touched)
+          "
+          class="alert alert-danger"
+          role="alert"
+        >
+          <div *ngIf="inputLabel?.errors?.required">Label is required!</div>
+        </div>
       </div>
 
       <div class="form-group col-md-6">
@@ -58,7 +68,11 @@
       </div>
     </div>
     <div class="form-group">
-      <button [disabled]="false" type="submit" class="btn btn-success">
+      <button
+        [disabled]="inputLabel?.invalid"
+        type="submit"
+        class="btn btn-success"
+      >
         New
       </button>
     </div>

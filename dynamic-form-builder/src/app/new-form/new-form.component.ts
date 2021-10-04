@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormControl,
@@ -50,8 +51,11 @@ export class NewFormComponent implements OnInit {
     //type of this controls
     return (this.inputFrom.get('tags') as FormArray).controls;
   }
-  get formName(): any {
-    return this.inputFrom.get('formName') as FormArray;
+  get formName(): AbstractControl | null {
+    return this.inputFrom.get('formName');
+  }
+  get inputLabel(): AbstractControl | null {
+    return this.inputFrom.get('inputLabel');
   }
   onRemove(tag: FormControl): void {
     let index = this.tags.indexOf(tag);
