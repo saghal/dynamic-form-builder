@@ -1,1 +1,68 @@
-<p>new-form works!</p>
+<link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  crossorigin="anonymous"
+/>
+
+<form [formGroup]="inputFrom" (ngSubmit)="onAddInputeTag(inputFrom.value)">
+  <div class="container">
+    <div class="form-group">
+      <input
+        name="formName"
+        type="text"
+        class="form-control"
+        style="margin-top: 5px"
+        id="FormName"
+        formControlName="formName"
+        placeholder="Form Name"
+      />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Label</label>
+        <input
+          name="inputLabel"
+          type="text"
+          formControlName="inputLabel"
+          class="form-control"
+          id="inputPassword4"
+          placeholder="Input Label"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Type</label>
+
+        <select
+          formControlName="inputType"
+          class="browser-default custom-select"
+          name="inputType"
+        >
+          <option value="input text" selected="">input text</option>
+          <option value="radio button">radio button</option>
+          <option value="check box">check box</option>
+          <option value="combo box">combo box</option>
+          <option value="date picker">date picker</option>
+          <option value="text Area">text Area</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">New</button>
+    </div>
+  </div>
+</form>
+<div class="container" *ngIf="tags">
+  <ul class="list-group">
+    <li *ngFor="let tag of tags" class="list-group-item">
+      Label: {{ tag.value[0] }} <br />
+      Type: {{ tag.value[1] }}
+      <div (click)="onRemove(tag)" style="margin-bottom: 40px">
+        <button type="submit" class="btn btn-danger float-right">delete</button>
+      </div>
+      <hr />
+    </li>
+  </ul>
+</div>
