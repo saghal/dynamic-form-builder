@@ -66,8 +66,11 @@ export class NewFormComponent implements OnInit {
   }
 
   formNameUniqueness(formName: any): void {
-    let result = this.formService.checkFromNameFromIndexedDB(formName.value);
-    if (result === true || result === false) this.formNameIsUnique = result;
+    this.formService
+      .checkFromNameFromIndexedDB(formName.value)
+      .subscribe((result) => {
+        this.formNameIsUnique = result;
+      });
   }
 
   onSave(formName: AbstractControl | null): void {

@@ -20,11 +20,15 @@
         />
         <div
           style="margin-top: 5px"
-          *ngIf="formName?.invalid && (formName?.dirty || formName?.touched)"
+          *ngIf="
+            (formName?.invalid && (formName?.dirty || formName?.touched)) ||
+            !formNameIsUnique
+          "
           class="alert alert-danger"
           role="alert"
         >
           <div *ngIf="formName?.errors?.required">Form Name is required!</div>
+          <div ngIF="!formNameIsUnique">formname must be unique!</div>
         </div>
       </div>
 
@@ -104,7 +108,7 @@
     </ul>
   </div>
   <div
-    *ngIf="!formName?.invalid && tagsLength !== 0"
+    *ngIf="!formName?.invalid && tagsLength !== 0 && formNameIsUnique"
     style="margin-top: 5px"
     class="col text-center"
   >
