@@ -23,15 +23,6 @@ export class FormService {
     return this.dbService
       .getByKey('forms', formName)
       .pipe(map((form) => form === undefined));
-    // {
-    //   if (form === undefined) {
-    //     flagMolaei.flag = true;
-    //     return true;
-    //   } else {
-    //     flagMolaei.flag = false;
-    //     return false;
-    //   }
-    // }
   }
 
   getFromIndexedDB(): Observable<any> {
