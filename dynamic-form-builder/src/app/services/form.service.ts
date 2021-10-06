@@ -33,4 +33,8 @@ export class FormService {
     //   }
     // }
   }
+
+  getFromIndexedDB(): Observable<any> {
+    return this.dbService.getAll('forms');
+  }
 }
