@@ -15,8 +15,8 @@ export class FormDetailComponent implements OnInit {
   constructor(private formService: FormService) {}
 
   ngOnInit(): void {
-    this.formService.getAllFromIndexedDB().subscribe((forms) => {
-      this.form = forms[0];
+    this.formService.getFromIndexedDB().subscribe((form) => {
+      this.form = form;
       this.formname = this.form.formName;
       this.tags = this.form.tags;
       console.log('form molaei:', this.form);

@@ -8,6 +8,7 @@ import { TagsStructure } from './../common/interface/tag.interface';
 @Injectable()
 export class FormService {
   selectedForm: FormStructure;
+  formname: string;
   constructor(private dbService: NgxIndexedDBService) {}
   saveOnIndexedDB(tags: TagsStructure[], formName: string): void {
     // console.log(tags, ':', formName);
@@ -31,13 +32,14 @@ export class FormService {
     return this.dbService.getAll('forms');
   }
 
-  getFromIndexedDB(formname: string): Observable<any> {
-    return this.dbService.getByKey('forms', formname);
+  getFromIndexedDB(): Observable<any> {
+    return this.dbService
+      .getByKey('forms', this.formname)
+      .pipe(map((form) => this.formname));
   }
 
-  showForm(formname: string) {
-    this.getFromIndexedDB(formname).subscribe((form) => {
-      this.selectedForm = form;
-    });
+  showForm(formname: string): void {
+    this.formname = formname;
+    //yefunction(formname).subscrib
   }
 }

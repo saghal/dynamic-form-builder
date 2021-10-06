@@ -22,6 +22,6 @@ export class FormsListComponent implements OnInit {
   }
 
   onClick(formname: string) {
-    this.formService.getFromIndexedDB(formname).subscribe((form) => {});
+    this.formService.showForm(formname);
   }
 }
