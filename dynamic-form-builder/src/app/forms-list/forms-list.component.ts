@@ -15,9 +15,13 @@ export class FormsListComponent implements OnInit {
   }
 
   getFormsList() {
-    this.formService.getFromIndexedDB().subscribe((forms) => {
+    this.formService.getAllFromIndexedDB().subscribe((forms) => {
       this.forms = forms;
       console.log('forms molaei:', this.forms);
     });
+  }
+
+  onClick(formname: string) {
+    this.formService.getFromIndexedDB(formname).subscribe((form) => {});
   }
 }

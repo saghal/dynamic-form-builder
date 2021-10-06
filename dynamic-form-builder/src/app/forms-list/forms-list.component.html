@@ -7,7 +7,11 @@
 
 <div class="float-end">
   <ul class="list-group container">
-    <li *ngFor="let form of forms" class="list-group-item">
+    <li
+      (click)="onClick(form.formName)"
+      *ngFor="let form of forms"
+      class="list-group-item"
+    >
       {{ form.formName }}
     </li>
   </ul>

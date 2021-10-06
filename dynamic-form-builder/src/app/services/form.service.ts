@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FormStructure } from '../common/interface/forms.interface';
 import { TagsStructure } from './../common/interface/tag.interface';
 
 @Injectable()
 export class FormService {
+  selectedForm: FormStructure;
   constructor(private dbService: NgxIndexedDBService) {}
   saveOnIndexedDB(tags: TagsStructure[], formName: string): void {
     // console.log(tags, ':', formName);
@@ -25,7 +27,17 @@ export class FormService {
       .pipe(map((form) => form === undefined));
   }
 
-  getFromIndexedDB(): Observable<any> {
+  getAllFromIndexedDB(): Observable<any> {
     return this.dbService.getAll('forms');
+  }
+
+  getFromIndexedDB(formname: string): Observable<any> {
+    return this.dbService.getByKey('forms', formname);
+  }
+
+  showForm(formname: string) {
+    this.getFromIndexedDB(formname).subscribe((form) => {
+      this.selectedForm = form;
+    });
   }
 }
