@@ -8,6 +8,7 @@ import { NewFormComponent } from './new-form/new-form.component';
 import { FormService } from './services/form.service';
 import { DBConfig, NgxIndexedDBModule } from 'ngx-indexed-db';
 import { FormsListComponent } from './forms-list/forms-list.component';
+import { FormnameValidators } from './common/validators/formname.validators';
 
 const dbConfig: DBConfig = {
   name: 'MyDb',
@@ -31,7 +32,7 @@ const dbConfig: DBConfig = {
     ReactiveFormsModule,
     NgxIndexedDBModule.forRoot(dbConfig),
   ],
-  providers: [FormService],
+  providers: [FormService, FormnameValidators],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

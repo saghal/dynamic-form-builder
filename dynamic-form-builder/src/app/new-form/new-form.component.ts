@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { TagsStructure, TagStructure } from '../common/interface/tag.interface';
+import { FormnameValidators } from '../common/validators/formname.validators';
 import { FormService } from '../services/form.service';
 
 @Component({
