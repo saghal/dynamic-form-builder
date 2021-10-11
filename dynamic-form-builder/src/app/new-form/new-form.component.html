@@ -133,7 +133,14 @@
   </form>
   <div class="container" *ngIf="tags">
     <ul class="list-group">
-      <li *ngFor="let tag of tags" class="list-group-item">
+      <li *ngFor="let tag of tags; let i = index" class="list-group-item">
+        priority : {{ i + 1 }}
+        <input
+          pattern="^[1-9][0-9]*$"
+          (change)="onSwap(i, +swap.value)"
+          type="text"
+          #swap
+        /><br />
         Label: {{ tag.value[0] }} <br />
         Type: {{ tag.value[1] }}
         <div (click)="onRemove(tag)" style="margin-bottom: 40px">

@@ -19,7 +19,6 @@ export class FormsListComponent implements OnInit {
   getFormsList() {
     this.formService.getAllFromIndexedDB().subscribe((forms) => {
       this.forms = forms;
-      console.log('forms molaei:', this.forms);
     });
   }
 

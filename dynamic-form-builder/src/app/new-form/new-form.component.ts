@@ -34,13 +34,11 @@ export class NewFormComponent implements OnInit {
   ) {}
 
   onAddInputeTag(form: TagStructure): void {
-    console.log('in add input tag : ', this.inValues);
     (this.inputFrom.get('tags') as FormArray).push(
       new FormControl([form.inputLabel, form.inputType, this.inValues])
     );
     this.inValues = [];
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
-    console.log('show tags ,', this.inputFrom.get('tags'));
   }
   onAddValueToTag(value: string) {
     this.inValues.push({ value: value });
@@ -106,9 +104,16 @@ export class NewFormComponent implements OnInit {
     }
 
     this.formService.saveOnIndexedDB(this.inputTags, formName?.value);
-    this.dbService.getByKey('forms', 'form 1').subscribe((form) => {
-      console.log(form);
-    });
+
     this.router.navigate(['/forms']);
+  }
+  onSwap(index: number, swapIndex: number) {
+    console.log('in keyup: ', this.tags.length);
+    console.log(index, swapIndex);
+    let temp = this.tags[index];
+    this.tags[index] = this.tags[swapIndex - 1];
+    this.tags[swapIndex - 1] = temp;
+
+    console.log(this.tags[0]);
   }
 }
