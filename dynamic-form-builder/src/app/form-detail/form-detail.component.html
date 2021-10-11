@@ -34,6 +34,7 @@
           </label>
         </div>
       </div>
+
       <div *ngIf="tag.inputType === 'checkbox'" class="form-group">
         <div *ngFor="let value of tag.inputValue" class="form-check">
           <input
@@ -46,6 +47,17 @@
             {{ value.value }}
           </label>
         </div>
+      </div>
+
+      <div *ngIf="tag.inputType === 'combobox'" class="form-group">
+        <select class="form-select">
+          <option
+            *ngFor="let value of tag.inputValue"
+            value="{{ value.value }}"
+          >
+            {{ value.value }}
+          </option>
+        </select>
       </div>
     </div>
   </form>
