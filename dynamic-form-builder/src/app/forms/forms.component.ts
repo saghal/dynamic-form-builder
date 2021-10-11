@@ -13,6 +13,5 @@ export class FormsComponent implements OnInit {
 
   receiveFormname($event) {
     this.formname = $event;
-    console.log('form name in forms: ', $event);
   }
 }

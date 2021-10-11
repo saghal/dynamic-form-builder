@@ -1,5 +1,23 @@
-<h1 *ngIf="formname !== undefined">form name :{{ formname }}</h1>
-<div *ngFor="let tag of tags">
-  <label for="tag.inputLabel">{{ tag.inputLabel }}{{ tag.inputType }}</label>
-  <input id="tag.inputLabel" type="{{ tag.inputType }}" name="tag.inputLabel" />
+<div class="container float-start">
+  <h1 *ngIf="formname !== undefined">form name :{{ formname }}</h1>
+  <form>
+    <div *ngFor="let tag of tags" class="form-group">
+      <label for="tag.inputLabel">{{ tag.inputLabel }}</label>
+      <input
+        *ngIf="tag.inputType === 'text'"
+        class="form-control"
+        id="tag.inputLabel"
+        type="{{ tag.inputType }}"
+        name="tag.inputLabel"
+      />
+      <textarea
+        *ngIf="tag.inputType === 'textarea'"
+        class="form-control"
+        name="tag.inputLabel"
+        id="tag.inputLabel"
+        cols="20"
+        rows="10"
+      ></textarea>
+    </div>
+  </form>
 </div>
