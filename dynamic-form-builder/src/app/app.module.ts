@@ -11,6 +11,7 @@ import { FormsListComponent } from './forms-list/forms-list.component';
 import { FormnameValidators } from './common/validators/formname.validators';
 import { FormDetailComponent } from './form-detail/form-detail.component';
 import { FormsComponent } from './forms/forms.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 const dbConfig: DBConfig = {
   name: 'MyDb',
@@ -27,7 +28,7 @@ const dbConfig: DBConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, NewFormComponent, FormsListComponent, FormDetailComponent, FormsComponent],
+  declarations: [AppComponent, NewFormComponent, FormsListComponent, FormDetailComponent, FormsComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
