@@ -59,6 +59,10 @@
           </option>
         </select>
       </div>
+      <div *ngIf="tag.inputType === 'date'" class="form-group">
+        <label for="{{ tag.inputLabel }}"> </label>
+        <input id="{{ tag.inputLabel }}" type="date" />
+      </div>
     </div>
   </form>
 </div>
