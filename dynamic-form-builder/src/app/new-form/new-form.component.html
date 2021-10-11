@@ -134,8 +134,10 @@
   <div class="container" *ngIf="tags">
     <ul class="list-group">
       <li *ngFor="let tag of tags; let i = index" class="list-group-item">
-        priority : {{ i + 1 }}
+        priority :
         <input
+          style="width: 40px"
+          value="{{ i + 1 }}"
           pattern="^[1-9][0-9]*$"
           (change)="onSwap(i, +swap.value)"
           type="text"

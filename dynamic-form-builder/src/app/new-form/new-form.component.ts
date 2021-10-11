@@ -110,10 +110,11 @@ export class NewFormComponent implements OnInit {
   onSwap(index: number, swapIndex: number) {
     console.log('in keyup: ', this.tags.length);
     console.log(index, swapIndex);
-    let temp = this.tags[index];
-    this.tags[index] = this.tags[swapIndex - 1];
-    this.tags[swapIndex - 1] = temp;
-
+    if (this.tags.length >= swapIndex) {
+      let temp = this.tags[index];
+      this.tags[index] = this.tags[swapIndex - 1];
+      this.tags[swapIndex - 1] = temp;
+    }
     console.log(this.tags[0]);
   }
 }
