@@ -1,7 +1,5 @@
-<h1>form name :{{ formname }}</h1>
+<h1 *ngIf="formname !== undefined">form name :{{ formname }}</h1>
 <div *ngFor="let tag of tags">
   <label for="tag.inputLabel">{{ tag.inputLabel }}{{ tag.inputType }}</label>
   <input id="tag.inputLabel" type="{{ tag.inputType }}" name="tag.inputLabel" />
 </div>
-
-<input type="checkbox" />

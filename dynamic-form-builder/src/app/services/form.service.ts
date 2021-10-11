@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormStructure } from '../common/interface/forms.interface';
 import { TagsStructure } from './../common/interface/tag.interface';
-
 @Injectable()
 export class FormService {
   selectedForm: FormStructure;
@@ -32,14 +31,11 @@ export class FormService {
     return this.dbService.getAll('forms');
   }
 
-  getFromIndexedDB(): Observable<any> {
-    return this.dbService
-      .getByKey('forms', this.formname)
-      .pipe(map((form) => this.formname));
+  getFromIndexedDB(formname): Observable<any> {
+    return this.dbService.getByKey('forms', formname);
   }
 
   showForm(formname: string): void {
-    this.formname = formname;
-    //yefunction(formname).subscrib
+    //this.formDetial.callDB(formname);
   }
 }

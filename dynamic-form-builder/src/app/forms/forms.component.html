@@ -1,1 +1,2 @@
-<app-forms-list></app-forms-list> <app-form-detail></app-form-detail>
+<app-forms-list (formnameEvent)="receiveFormname($event)"></app-forms-list>
+<app-form-detail [formname]="formname"></app-form-detail>

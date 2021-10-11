@@ -1,5 +1,5 @@
 import { TagsStructure } from './../common/interface/tag.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormService } from '../services/form.service';
 import { FormStructure } from '../common/interface/forms.interface';
 
@@ -8,18 +8,17 @@ import { FormStructure } from '../common/interface/forms.interface';
   templateUrl: './form-detail.component.html',
   styleUrls: ['./form-detail.component.css'],
 })
-export class FormDetailComponent implements OnInit {
+export class FormDetailComponent implements OnInit, OnChanges {
   tags: TagsStructure[];
-  formname: string;
+  @Input() formname: string | undefined;
   form: FormStructure;
   constructor(private formService: FormService) {}
-
-  ngOnInit(): void {
-    this.formService.getFromIndexedDB().subscribe((form) => {
+  ngOnChanges(): void {
+    this.formService.getFromIndexedDB(this.formname).subscribe((form) => {
       this.form = form;
       this.formname = this.form.formName;
       this.tags = this.form.tags;
-      console.log('form molaei:', this.form);
     });
   }
+  ngOnInit(): void {}
 }

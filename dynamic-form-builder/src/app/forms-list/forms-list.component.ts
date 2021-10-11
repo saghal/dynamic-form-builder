@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormStructure } from '../common/interface/forms.interface';
 import { FormService } from '../services/form.service';
 
@@ -8,6 +8,8 @@ import { FormService } from '../services/form.service';
   styleUrls: ['./forms-list.component.css'],
 })
 export class FormsListComponent implements OnInit {
+  @Output() formnameEvent = new EventEmitter<string>();
+
   constructor(private formService: FormService) {}
   forms: FormStructure[];
   ngOnInit(): void {
@@ -22,6 +24,6 @@ export class FormsListComponent implements OnInit {
   }
 
   onClick(formname: string) {
-    this.formService.showForm(formname);
+    this.formnameEvent.emit(formname);
   }
 }
