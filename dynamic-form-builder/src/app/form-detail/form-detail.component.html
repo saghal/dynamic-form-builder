@@ -18,6 +18,22 @@
         cols="20"
         rows="10"
       ></textarea>
+      <div *ngIf="tag.inputType === 'radio'">
+        <div
+          *ngFor="let value of tag.inputValue; let i = index"
+          class="form-check"
+        >
+          <input
+            class="form-check-input"
+            type="radio"
+            name="{{ tag.inputLabel }}"
+            id="{{ tag.inputLabel }}"
+          />
+          <label class="form-check-label" for="tag.inputLabel">
+            {{ value.value }}
+          </label>
+        </div>
+      </div>
     </div>
   </form>
 </div>
