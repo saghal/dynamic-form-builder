@@ -83,7 +83,10 @@
         </div>
       </div>
 
-      <div *ngIf="inputType?.value === 'radio'" class="form-group">
+      <div
+        *ngIf="inputType?.value === 'radio' || inputType?.value === 'checkbox'"
+        class="form-group"
+      >
         <input
           placeholder="Add new value"
           class="form-control"
