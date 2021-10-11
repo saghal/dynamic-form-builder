@@ -107,14 +107,15 @@
         <div class="container" *ngIf="inputValue" style="margin-top: 40px">
           <ul class="list-group">
             <li *ngFor="let iv of inValues" class="list-group-item">
-              Label: {{ iv.value }} <br />
+              Label: {{ iv.value }}
               <div
                 class="btn btn-danger float-end m-2"
                 (click)="onRemoveValue(iv)"
+                style="margin-bottom: 40px"
               >
                 Delete
               </div>
-              <hr />
+              <hr style="margin-top: 40px" />
             </li>
           </ul>
         </div>
