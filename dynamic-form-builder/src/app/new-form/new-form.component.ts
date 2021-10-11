@@ -7,7 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
-import { TagsStructure, TagStructure } from '../common/interface/tag.interface';
+import {
+  TagsStructure,
+  TagStructure,
+  tagValue,
+} from '../common/interface/tag.interface';
 import { FormnameValidators } from '../common/validators/formname.validators';
 import { FormService } from '../services/form.service';
 
@@ -19,7 +23,9 @@ import { FormService } from '../services/form.service';
 export class NewFormComponent implements OnInit {
   inputFrom: FormGroup;
   tagsLength: number = 0;
+  valueLength: number = 0;
   inputTags: TagsStructure[] = [];
+  inValues: tagValue[] = [];
   formNameIsUnique: boolean = false;
   constructor(
     private formService: FormService,
@@ -27,17 +33,28 @@ export class NewFormComponent implements OnInit {
   ) {}
 
   onAddInputeTag(form: TagStructure): void {
+    console.log('in add input tag : ', this.inValues);
     (this.inputFrom.get('tags') as FormArray).push(
-      new FormControl([form.inputLabel, form.inputType])
+      new FormControl([form.inputLabel, form.inputType, this.inValues])
     );
+    this.inValues = [];
     this.tagsLength = (this.inputFrom.get('tags') as FormArray).value.length;
+    console.log('show tags ,', this.inputFrom.get('tags'));
   }
-
+  onAddValueToTag(value: string) {
+    this.inValues.push({ value: value });
+  }
+  onRemoveValue(iv: any) {
+    let index = this.inValues.indexOf(iv);
+    this.inValues.splice(index, 1);
+    console.log('print iv ,', this.inValues);
+  }
   ngOnInit(): void {
     this.inputFrom = new FormGroup({
       formName: new FormControl(null, Validators.required),
       inputType: new FormControl(null, Validators.required),
       inputLabel: new FormControl(null, Validators.required),
+      inputValue: new FormArray([]),
       tags: new FormArray([]),
     });
   }
@@ -47,6 +64,9 @@ export class NewFormComponent implements OnInit {
     return (this.inputFrom.get('tags') as FormArray).controls;
   }
 
+  get inputValue(): any {
+    return (this.inputFrom.get('inputValue') as FormArray).controls;
+  }
   get formName(): AbstractControl | null {
     return this.inputFrom.get('formName');
   }
@@ -79,6 +99,7 @@ export class NewFormComponent implements OnInit {
         this.inputTags.push({
           inputLabel: tag.value[0],
           inputType: tag.value[1],
+          inputValue: tag.value[2],
         });
       }
     }
