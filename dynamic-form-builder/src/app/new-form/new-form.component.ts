@@ -42,18 +42,19 @@ export class NewFormComponent implements OnInit {
   }
   onAddValueToTag(value: string) {
     this.inValues.push({ value: value });
+    this.valueLength = this.inValues.length;
   }
   onRemoveValue(iv: any) {
     let index = this.inValues.indexOf(iv);
     this.inValues.splice(index, 1);
-    console.log('print iv ,', this.inValues);
+    this.valueLength = this.inValues.length;
   }
   ngOnInit(): void {
     this.inputFrom = new FormGroup({
       formName: new FormControl(null, Validators.required),
       inputType: new FormControl(null, Validators.required),
       inputLabel: new FormControl(null, Validators.required),
-      inputValue: new FormArray([]),
+      inputValue: new FormControl(null, Validators.required),
       tags: new FormArray([]),
     });
   }
@@ -64,7 +65,7 @@ export class NewFormComponent implements OnInit {
   }
 
   get inputValue(): any {
-    return (this.inputFrom.get('inputValue') as FormArray).controls;
+    return this.inputFrom.get('inputValue');
   }
   get formName(): AbstractControl | null {
     return this.inputFrom.get('formName');
@@ -108,13 +109,10 @@ export class NewFormComponent implements OnInit {
     this.router.navigate(['/forms']);
   }
   onSwap(index: number, swapIndex: number) {
-    console.log('in keyup: ', this.tags.length);
-    console.log(index, swapIndex);
-    if (this.tags.length >= swapIndex) {
+    if (this.tags.length >= swapIndex && swapIndex > 0) {
       let temp = this.tags[index];
       this.tags[index] = this.tags[swapIndex - 1];
       this.tags[swapIndex - 1] = temp;
     }
-    console.log(this.tags[0]);
   }
 }
