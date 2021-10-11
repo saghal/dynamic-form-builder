@@ -6,13 +6,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import {
   TagsStructure,
   TagStructure,
   tagValue,
 } from '../common/interface/tag.interface';
-import { FormnameValidators } from '../common/validators/formname.validators';
 import { FormService } from '../services/form.service';
 
 @Component({
@@ -29,7 +29,8 @@ export class NewFormComponent implements OnInit {
   formNameIsUnique: boolean = false;
   constructor(
     private formService: FormService,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    private router: Router
   ) {}
 
   onAddInputeTag(form: TagStructure): void {
@@ -108,5 +109,6 @@ export class NewFormComponent implements OnInit {
     this.dbService.getByKey('forms', 'form 1').subscribe((form) => {
       console.log(form);
     });
+    this.router.navigate(['/forms']);
   }
 }
