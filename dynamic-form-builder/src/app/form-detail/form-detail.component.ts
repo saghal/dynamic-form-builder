@@ -14,6 +14,11 @@ export class FormDetailComponent implements OnInit, OnChanges {
   form: FormStructure;
   constructor(private formService: FormService) {}
   ngOnChanges(): void {
+    if (this.formname !== undefined) {
+      this.getFormDetail();
+    }
+  }
+  getFormDetail(): void {
     this.formService.getFromIndexedDB(this.formname).subscribe((form) => {
       this.form = form;
       this.formname = this.form.formName;
